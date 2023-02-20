@@ -5,15 +5,16 @@ class Order {
   String? title;
   String? status;
   String? total;
- List<Product>? products;
+ //List<Product>? products;
 
-  Order(this.id, this.code, this.status, this.total,this.products);
+  Order(this.id, this.code, this.status, this.total);
   Order.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     code = json['code'];
     status = json['status'];
     total = json['total'];
-   products=getProductList(json['products']);
+ //  products=getProductList(json['products']);
+
     //
   //  final list = response.data["data"] as List<dynamic>;
 

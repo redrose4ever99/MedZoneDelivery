@@ -43,7 +43,7 @@ class _OrderListState extends State<OrderList> {
                   style: AppStyle.txtInterSemiBold16)),
           body: Container(
               child: FutureBuilder(
-                  future: DioConnection.new().getData(this.man),
+                  future: DioConnection.new().ReadTestJsonData() ,
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.data == null) {
                       return Container(

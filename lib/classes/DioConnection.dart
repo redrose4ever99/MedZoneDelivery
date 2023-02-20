@@ -1,4 +1,10 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/services.dart';
+import 'package:medzonedelivery/classes/HomeItems.dart';
 import 'DeliveryMan.dart';
 import 'Order.dart';
 
@@ -82,4 +88,15 @@ class DioConnection {
       print(e);
     }
   }
+
+  Future<List<HomeItems>>ReadTestJsonData() async{
+    final jsondata = await rootBundle.loadString('lib/jsonfile/orders.json');
+    final list = json.decode(jsondata) as List<dynamic>;
+print(list);
+    return list.map((e) => HomeItems.fromJson(e)).toList();
+  }
+
+
+
+
 }
