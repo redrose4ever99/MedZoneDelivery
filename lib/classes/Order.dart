@@ -1,47 +1,46 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class Order {
-  final int id;
-  final String code;
-  final String title;
-  final String status;
-  final double total;
-  final Product products;
+  int? id;
+  String? code;
+  String? title;
+  String? status;
+  String? total;
+ List<Product>? products;
 
+  Order(this.id, this.code, this.status, this.total,this.products);
+  Order.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    code = json['code'];
+    status = json['status'];
+    total = json['total'];
+   products=getProductList(json['products']);
+    //
+  //  final list = response.data["data"] as List<dynamic>;
 
-  Order(this.id, this.code, this.title, this.status, this.total, this.products);
+    //return list.map((e) => DeliveryMan.fromJson(e)).toList();
 
-  factory Order.fromJson(Map<String, dynamic> json) {
-    var order2 = Order(
-      json['id'],
-       json['code'],
-     json['title'],
-      json['status'],
-       json['total'],
-      Product.fromJson(json['products']),
-    );
-    var order = order2;
-    return order;
+  }
+
+  List<Product>? getProductList(json) {
+    final List  list= json as List<dynamic>;
+    return list.map((e) => Product.fromJson(e)).toList();
+
   }
 }
 //[{"offer":"21","price":"24000.0","amount":"6","product":"31"}]
 
 class Product {
-  late int offer;
-  late int amount;
-  late int id;
-  late double price;
+  int? offer;
+  int? amount;
+  int? id;
+  double? price;
 
   Product(this.offer, this.amount, this.id, this.price);
 
-
-  factory Product.fromJson(Map<String, dynamic> json) {
-    var product = Product(
-       json['offer'],
-       json['amount'],
-      json['product'],
-     json['price'],
-    );
-
-    return product;
+  Product.fromJson(Map<String, dynamic> json) {
+    offer = json['offer'];
+    amount = json['amount'];
+    id = json['product'];
+    price = json['price'];
   }
 }

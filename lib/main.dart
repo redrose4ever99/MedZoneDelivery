@@ -5,10 +5,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:medzonedelivery/pages/Log.dart';
-import 'package:medzonedelivery/pages/orderlistpage.dart';
+import 'package:medzonedelivery/pages/login_screen/LoginPage.dart';
+import 'package:medzonedelivery/pages/orderdetails_screen/orderdetails_screen.dart';
+import 'package:medzonedelivery/pages/orderlist_screen/orderlistpage.dart';
 import 'package:unique_identifier/unique_identifier.dart';
 import 'package:medzonedelivery/widgets/custom_image_view.dart';
 
@@ -42,6 +43,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  String? identifier;
   @override
   Widget buildin(BuildContext context) {
     return Scaffold(
@@ -71,6 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // initUniqueIdentifierState();
     print("in the meddle");
    initUniqueIdentifierState();//
+
     startSplashScreenTimer();
     // calling startSplashScreenTimer method,to start the timer
   }
@@ -88,6 +91,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void navigationTologine() {
+   // Get.to(OrderList());
+
     Get.to(Log());
   }
 
@@ -120,11 +125,13 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> initUniqueIdentifierState() async {
-    String? identifier;
+
     try {
       identifier = await UniqueIdentifier.serial;
       print('this is identifier');
       print(identifier);
+
+
     } on PlatformException {
       identifier = 'Failed to get Unique Identifier';
     }
@@ -133,6 +140,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
     setState(() {
       _identifier = identifier!;
+      Fluttertoast.showToast(
+        msg: 'the device identifier is'+_identifier,
+      );
     });
   }
 

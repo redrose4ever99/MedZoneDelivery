@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import '../../classes/Order.dart';
 import '../orderdetails_screen/widgets/cart_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:medzonedelivery/core/app_export.dart';
@@ -9,9 +10,14 @@ import 'package:medzonedelivery/widgets/app_bar/custom_app_bar.dart';
 import 'package:medzonedelivery/widgets/custom_button.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../orderlistpage.dart';
+import '../orderlist_screen/orderlistpage.dart';
 
 class OrderdetailsScreen extends StatelessWidget {
+
+  const OrderdetailsScreen({super.key, required this.order});
+  final Order order;
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -31,10 +37,18 @@ class OrderdetailsScreen extends StatelessWidget {
                       margin: getMargin(right: 21, top: 16, bottom: 16),
                       onTap: () => onTapArrowdown(context)),
                   centerTitle: true,
-                  title: Text("تفاصيل الطلب",
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.left,
-                      style: AppStyle.txtInterSemiBold16)),
+                  title: Row(
+                    children: [
+                      Text("   تفاصيل الطلب   ",
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.left,
+                          style: AppStyle.txtInterSemiBold),
+                      Text("للطبيب ....... ",
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.left,
+                          style: AppStyle.txtInterSemiBold),
+                    ],
+                  )),
               body: GestureDetector(
                   onTap: () {
                     alertFirst(context);
@@ -47,6 +61,15 @@ class OrderdetailsScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
+
+                            Container(
+                              width: 100,
+                              height: 100,
+                              child: Text("    العنوان التفصيلي ..   ",
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  style: AppStyle.txtInterSemiBold),
+                            ),
                             Padding(
                                 padding: getPadding(left: 1),
                                 child: ListView.separated(
@@ -79,7 +102,7 @@ class OrderdetailsScreen extends StatelessWidget {
                                       style: AppStyle.txtInterMedium14),
                                   Padding(
                                       padding: getPadding(top: 1),
-                                      child: Text("\$ 20.98",
+                                      child: Text("5000 ل.س",
                                           overflow: TextOverflow.ellipsis,
                                           textAlign: TextAlign.left,
                                           style: AppStyle.txtInterSemiBold18))
@@ -96,6 +119,6 @@ class OrderdetailsScreen extends StatelessWidget {
   }
 
   onTapArrowdown(BuildContext context) {
-    Get.to(Orderlist());
+    //Get.to(OrderList());
   }
 }

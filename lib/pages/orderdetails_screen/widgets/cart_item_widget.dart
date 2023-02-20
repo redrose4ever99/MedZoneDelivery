@@ -28,7 +28,7 @@ class CartItemWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  "دكتور محمد الحمد",
+                  " رقم العرض",
                   overflow: TextOverflow.ellipsis,
                   style: AppStyle.txtInterSemiBold,
                 ),
@@ -38,26 +38,18 @@ class CartItemWidget extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      CustomImageView(
-                        svgPath: ImageConstant.imgLocation,
-                        height: getSize(
-                          25.00,
-                        ),
-                        width: getSize(
-                          25.00,
-                        ),
-                      ),
+
                       Text(
-                        "جرمانا الجناين",
+                        " المنتج",
                         overflow: TextOverflow.ellipsis,
-                        style: AppStyle.txtInterMedium,
+                        style: AppStyle.txtInterSemiBold,
                       ),
                     ],
                   ),
                 ),
                 Padding(
                   padding: getPadding(
-                    top: 25,
+                    top: 5,
                   ),
                   child: Row(
                     children: [
@@ -81,7 +73,7 @@ class CartItemWidget extends StatelessWidget {
           Padding(
             padding: getPadding(
               left: 33,
-              top: 55,
+              top: 35,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
