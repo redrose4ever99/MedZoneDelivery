@@ -1,6 +1,3 @@
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import '../../classes/Order.dart';
 import '../orderdetails_screen/widgets/cart_item_widget.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +7,7 @@ import 'package:medzonedelivery/widgets/app_bar/custom_app_bar.dart';
 import 'package:medzonedelivery/widgets/custom_button.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../orderlist_screen/orderlistpage.dart';
-
 class OrderdetailsScreen extends StatelessWidget {
-
   const OrderdetailsScreen({super.key, required this.order});
   final Order order;
 
@@ -61,7 +55,6 @@ class OrderdetailsScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-
                             Container(
                               width: 100,
                               height: 100,
@@ -107,7 +100,8 @@ class OrderdetailsScreen extends StatelessWidget {
                                           textAlign: TextAlign.left,
                                           style: AppStyle.txtInterSemiBold18))
                                 ])),
-                        CustomButton(height: 50, width: 192, text: "تم التسليم"),
+                        CustomButton(
+                            height: 50, width: 192, text: "تم التسليم"),
                       ]))),
         ));
   }

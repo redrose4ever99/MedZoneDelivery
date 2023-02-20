@@ -1,5 +1,3 @@
-//import '../orderlist_page/widgets/schedule_item_widget.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -23,9 +21,7 @@ class OrderList extends StatefulWidget {
 class _OrderListState extends State<OrderList> {
   final DeliveryMan man;
 
-
   _OrderListState(this.man);
-
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -65,7 +61,7 @@ class _OrderListState extends State<OrderList> {
                             return InkWell(
                                 // When the user taps the button, show a snackbar.
                                 onTap: () {
-                                  onTapGotoDetails(context,items[index]);
+                                  onTapGotoDetails(context, items[index]);
                                 },
                                 child: Container(
                                   padding: getPadding(
@@ -316,21 +312,17 @@ class _OrderListState extends State<OrderList> {
 
   void onTapGotoDetails(BuildContext context, item) {
     Get.to(() => OrderdetailsScreen(
-      order: item,
-    ));
+          order: item,
+        ));
   }
+
   onTapDeliveryState(BuildContext context, int id, int status) {
-    DioConnection.new().updateState(id, status,man);
+    DioConnection.new().updateState(id, status, man);
   }
 
   onTapArrowdown(BuildContext context) {}
 
-
-
-
-
- // void onTapGotoDetails(BuildContext context,List<Orders>) {
-   // Get.to(() => OrderdetailsScreen());
+  // void onTapGotoDetails(BuildContext context,List<Orders>) {
+  // Get.to(() => OrderdetailsScreen());
   //}
-
 }

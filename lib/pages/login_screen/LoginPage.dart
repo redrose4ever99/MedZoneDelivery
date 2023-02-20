@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -9,7 +7,7 @@ import 'package:medzonedelivery/widgets/custom_button.dart';
 import 'package:medzonedelivery/widgets/custom_text_form_field.dart';
 import 'package:medzonedelivery/core/app_export.dart';
 import 'package:medzonedelivery/pages/orderlist_screen/orderlistpage.dart';
-import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:medzonedelivery/widgets/custom_textphone_form_field.dart';
 // ignore_for_file: must_be_immutable
 
@@ -121,6 +119,7 @@ class Log extends StatelessWidget {
         //insert data into ModelClass
       } else {
         print(list[0].name);
+        print(list[0].id);
         onTapOrderList(context, list[0]);
         // show error
       }
@@ -159,6 +158,7 @@ class Log extends StatelessWidget {
   }
 
   onTapOrderList(BuildContext context, DeliveryMan man) {
+    print(man.id);
     Get.to(() => OrderList(
           deliveryMan: man,
         ));

@@ -4,6 +4,11 @@ import 'Order.dart';
 
 class DioConnection {
   Future<List<Order>> getData(DeliveryMan man) async {
+    print("oooo");
+    print(man.id);
+    //
+    // var response = await Dio().get('https://med.ma5znsyria.com/orders',
+
     var response = await Dio().get('http://med.ma5znsyria.com/personOrders',
         queryParameters: <String, dynamic>{'id': man.id});
     print(response);
@@ -57,7 +62,7 @@ class DioConnection {
     }
   }
 
-  Future updateState(int id, int status,DeliveryMan man) async {
+  Future updateState(int id, int status, DeliveryMan man) async {
     try {
       var response = await Dio().get('http://med.ma5znsyria.com/editOrder',
           queryParameters: <String, dynamic>{

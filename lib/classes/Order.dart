@@ -23,6 +23,8 @@ class Order {
 
   List<Product>? getProductList(json) {
     final List  list= json as List<dynamic>;
+    print("product is");
+    print(list);
     return list.map((e) => Product.fromJson(e)).toList();
 
   }
