@@ -58,7 +58,7 @@ class CustomButton extends StatelessWidget {
   _buildButtonWidget() {
     return Padding(
       padding: margin ?? EdgeInsets.zero,
-      child: TextButton(
+      child: ElevatedButton(
         onPressed: onTap,
         style: _buildTextButtonStyle(),
         child: _buildButtonWithOrWithoutIcon(),
@@ -126,7 +126,7 @@ class CustomButton extends StatelessWidget {
       case ButtonVariant.OutlineWhiteA700:
         return null;
       default:
-        return ColorConstant.cyan300;
+        return ColorConstant.medzonebackground;
     }
   }
 

@@ -7,12 +7,12 @@ import 'package:medzonedelivery/widgets/custom_button.dart';
 import 'package:medzonedelivery/widgets/custom_text_form_field.dart';
 import 'package:medzonedelivery/core/app_export.dart';
 import 'package:medzonedelivery/pages/orderlist_screen/orderlistpage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:medzonedelivery/widgets/custom_textphone_form_field.dart';
 // ignore_for_file: must_be_immutable
 
 // ignore_for_file: must_be_immutable
-class Log extends StatelessWidget {
+class Login extends StatelessWidget {
   TextEditingController phoneFormController = TextEditingController();
 
   TextEditingController codeFormController = TextEditingController();
@@ -84,7 +84,7 @@ class Log extends StatelessWidget {
                                 isObscureText: true),
                             CustomButton(
                                 height: 50,
-                                width: 600,
+                                width: 300,
                                 text: "دخول",
                                 margin: getMargin(top: 27),
                                 fontStyle:
@@ -109,6 +109,17 @@ class Log extends StatelessWidget {
 //
 //
   void login(String mobile, password, BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (context){
+        return Center(child:
+          CircularProgressIndicator(
+          color: ColorConstant.medzonebackground,
+          backgroundColor: Colors.white70,
+          ));
+      }
+    );
+
     List<DeliveryMan> list = List.empty();
     try {
       list = await DioConnection.new().login(mobile, password);
@@ -118,9 +129,12 @@ class Log extends StatelessWidget {
 
         //insert data into ModelClass
       } else {
+        Navigator.of(context).pop();
         print(list[0].name);
         print(list[0].id);
+        savePreferences(list[0]);
         onTapOrderList(context, list[0]);
+
         // show error
       }
     } catch (e) {
@@ -162,6 +176,7 @@ class Log extends StatelessWidget {
     Get.to(() => OrderList(
           deliveryMan: man,
         ));
+
   }
 
   String? validateMobile(String value) {
@@ -171,5 +186,7 @@ class Log extends StatelessWidget {
     else
       return null;
   }
+
+  void savePreferences(DeliveryMan list) {}
   //var url = Uri.http("example.org", "/my/service/path", {"getUrlParam1":"value"});
 }

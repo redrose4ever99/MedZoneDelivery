@@ -23,18 +23,20 @@ class DioConnection {
       var data = response.data["data"][0];
 
       final list = response.data["data"] as List<dynamic>;
-
+     // List<Order>  bb= list.map((e) => Order.fromJson(e)).toList();
+     // print(bb[0].customers);
       return list.map((e) => Order.fromJson(e)).toList();
     } else
       return List.empty();
   }
 
-  Future<List<DeliveryMan>> login(String mobile, password) async {
+  Future<List<DeliveryMan>> login(String mobile, code) async {
     try {
       var response = await Dio().get('https://med.ma5znsyria.com/person',
           queryParameters: <String, dynamic>{
             'mobile': mobile,
-            'code': password,
+            'code': code,
+
           });
       if (response.statusCode == 200) {
         var data = response.data["data"][0];
@@ -44,6 +46,7 @@ class DioConnection {
         return list.map((e) => DeliveryMan.fromJson(e)).toList();
         //insert data into ModelClass
       } else {
+        print("faild login");
         return List.empty();
       }
     } catch (e) {

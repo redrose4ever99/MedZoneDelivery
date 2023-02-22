@@ -43,7 +43,7 @@ class _OrderListState extends State<OrderList> {
                   style: AppStyle.txtInterSemiBold16)),
           body: Container(
               child: FutureBuilder(
-                  future: DioConnection.new().ReadTestJsonData() ,
+                  future: DioConnection.new().getData(man) ,
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.data == null) {
                       return Container(
@@ -101,7 +101,9 @@ class _OrderListState extends State<OrderList> {
                                                   Row(
                                                     children: [
                                                       Text(
-                                                        "الدكتور ....",
+                                                        items[index]
+                                                            .customer_full_name
+                                                            .toString(),
                                                         overflow: TextOverflow
                                                             .ellipsis,
                                                         textAlign:
@@ -111,7 +113,7 @@ class _OrderListState extends State<OrderList> {
                                                       ),
                                                       Padding(
                                                         padding: getPadding(
-                                                          right: 8,
+                                                          right:100,
                                                           bottom: 2,
                                                         ),
                                                         child: Row(
@@ -128,6 +130,7 @@ class _OrderListState extends State<OrderList> {
                                                                       .right,
                                                               style: AppStyle
                                                                   .txtInterSemiBold18,
+
                                                             ),
                                                             Text(
                                                               "       ",
@@ -141,7 +144,7 @@ class _OrderListState extends State<OrderList> {
                                                                   .txtInterSemiBold18,
                                                             ),
                                                             Text(
-                                                              "جرمانا الجناين",
+                                                             " ",
                                                               overflow:
                                                                   TextOverflow
                                                                       .ellipsis,
@@ -174,7 +177,9 @@ class _OrderListState extends State<OrderList> {
                                                         ),
                                                       ),
                                                       Text(
-                                                        "جرمانا الجناين",
+                                                        items[index]
+                                                            .customer_details_address
+                                                            .toString(),
                                                         overflow: TextOverflow
                                                             .ellipsis,
                                                         textAlign:
@@ -213,7 +218,9 @@ class _OrderListState extends State<OrderList> {
                                                 left: 5,
                                               ),
                                               child: Text(
-                                                "26/06/2021",
+                                               items[index].order_date.toString(),
+
+
                                                 overflow: TextOverflow.ellipsis,
                                                 textAlign: TextAlign.left,
                                                 style: AppStyle

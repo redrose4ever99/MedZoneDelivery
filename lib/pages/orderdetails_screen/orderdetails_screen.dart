@@ -33,50 +33,185 @@ class OrderdetailsScreen extends StatelessWidget {
                   centerTitle: true,
                   title: Row(
                     children: [
-                      Text("   تفاصيل الطلب   ",
+                      Text("طلب : ",
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
                           style: AppStyle.txtInterSemiBold),
-                      Text("للطبيب ....... ",
+                      Text(order.customer_full_name.toString(),
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.left,
                           style: AppStyle.txtInterSemiBold),
                     ],
-                  )),
-              body: GestureDetector(
-                  onTap: () {
-                    alertFirst(context);
-                  },
-                  child: Container(
-                      width: size.width,
-                      padding:
-                          getPadding(left: 20, top: 24, right: 10, bottom: 24),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: 100,
-                              height: 100,
-                              child: Text("    العنوان التفصيلي ..   ",
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.left,
-                                  style: AppStyle.txtInterSemiBold),
+                  )
+
+
+
+              ),
+              body:
+
+                      Card(
+                        color: ColorConstant.medzonebackground,
+                        child: Container(
+          child: FutureBuilder(
+          future: order.getProductList(order) ,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        if (snapshot.data == null) {
+                          return Container(
+                            child: Center(
+                              child: Text("جاري التحميل ..."),
                             ),
-                            Padding(
-                                padding: getPadding(left: 1),
-                                child: ListView.separated(
-                                    physics: BouncingScrollPhysics(),
-                                    shrinkWrap: true,
-                                    separatorBuilder: (context, index) {
-                                      return SizedBox(
-                                          height: getVerticalSize(25.00));
-                                    },
-                                    itemCount: 2,
-                                    itemBuilder: (context, index) {
-                                      return CartItemWidget();
-                                    }))
-                          ]))),
+                          );
+                        } else {
+                          var items = snapshot.data;
+
+                          return ListView.builder(
+                              itemCount: items == null ? 0 : items.length,
+                              scrollDirection: Axis.vertical,
+                              itemBuilder: (context, index) {
+                                return  Container(
+                                      padding: getPadding(
+                                        all: 15,
+                                      ),
+                                      decoration:
+                                      AppDecoration.outlineBluegray501.copyWith(
+                                        borderRadius:
+                                        BorderRadiusStyle.roundedBorder8,
+                                      ),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: getPadding(
+                                              right: 8,
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                              children: [
+                                                Padding(
+                                                  padding: getPadding(
+                                                    bottom: 2,
+                                                  ),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                    children: [
+                                                      Row(
+
+                                                        children: [
+
+                                                          Container(
+                                                            width: width/4,
+                                                            child: Column(
+                                                              children: [
+                                                                Text(
+                                                                  "العرض ",
+                                                                  overflow: TextOverflow
+                                                                      .ellipsis,
+                                                                  textAlign:
+                                                                  TextAlign.right,
+                                                                  style: AppStyle
+                                                                      .txtInterSemiBold18,
+                                                                ),
+                                                                Text(
+                                                                  items[index]
+                                                                      .offer
+                                                                      .toString(),
+                                                                  overflow: TextOverflow
+                                                                      .ellipsis,
+                                                                  textAlign:
+                                                                  TextAlign.right,
+                                                                  style: AppStyle
+                                                                      .txtInterSemiBold18,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            width: width/4,
+                                                            child: Column(
+                                                              children: [
+                                                                Text(
+                                                                  "الكمية ",
+                                                                  overflow: TextOverflow
+                                                                      .ellipsis,
+                                                                  textAlign:
+                                                                  TextAlign.right,
+                                                                  style: AppStyle
+                                                                      .txtInterSemiBold18,
+                                                                ),
+                                                                Text(
+                                                                  items[index]
+                                                                      .amount
+                                                                      .toString(),
+                                                                  overflow: TextOverflow
+                                                                      .ellipsis,
+                                                                  textAlign:
+                                                                  TextAlign.right,
+                                                                  style: AppStyle
+                                                                      .txtInterSemiBold18,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            width: width/4,
+                                                            child: Column(
+                                                              children: [
+                                                                Text(
+                                                                  "السعر ",
+                                                                  overflow: TextOverflow
+                                                                      .ellipsis,
+                                                                  textAlign:
+                                                                  TextAlign.right,
+                                                                  style: AppStyle
+                                                                      .txtInterSemiBold18,
+                                                                ),
+                                                                Text(
+                                                                  items[index]
+                                                                      .price
+                                                                      .toString(),
+                                                                  overflow: TextOverflow
+                                                                      .ellipsis,
+                                                                  textAlign:
+                                                                  TextAlign.right,
+                                                                  style: AppStyle
+                                                                      .txtInterSemiBold18,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          ],
+
+                                                      ),
+
+
+                                                    ],
+
+                                                  ),
+
+                                                ),
+
+                                                ],
+                                            ),
+                                          ),
+
+                                        ],
+                                      ),
+                                    );
+                              });
+                        }
+            }),
+
+                  ),
+                      ),
               bottomNavigationBar: Padding(
                   padding: getPadding(left: 20, right: 20, bottom: 26),
                   child: Row(
@@ -95,15 +230,17 @@ class OrderdetailsScreen extends StatelessWidget {
                                       style: AppStyle.txtInterMedium14),
                                   Padding(
                                       padding: getPadding(top: 1),
-                                      child: Text("5000 ل.س",
+                                      child: Text(order.total.toString(),
                                           overflow: TextOverflow.ellipsis,
                                           textAlign: TextAlign.left,
                                           style: AppStyle.txtInterSemiBold18))
                                 ])),
                         CustomButton(
-                            height: 50, width: 192, text: "تم التسليم"),
+                            height: 50, width: 192,
+
+                            text: "تسليم الطلب"),
                       ]))),
-        ));
+        ) );
   }
 
   alertFirst(BuildContext context) {
@@ -113,6 +250,6 @@ class OrderdetailsScreen extends StatelessWidget {
   }
 
   onTapArrowdown(BuildContext context) {
-    //Get.to(OrderList());
+    Navigator.pop(context,true);
   }
 }

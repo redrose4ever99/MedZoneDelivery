@@ -7,9 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:medzonedelivery/pages/login_screen/LoginPage.dart';
-import 'package:medzonedelivery/pages/orderdetails_screen/orderdetails_screen.dart';
-import 'package:medzonedelivery/pages/orderlist_screen/orderlistpage.dart';
+import 'package:medzonedelivery/pages/Auth/presentation/Login.dart';
+
 import 'package:unique_identifier/unique_identifier.dart';
 import 'package:medzonedelivery/widgets/custom_image_view.dart';
 
@@ -72,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     // initUniqueIdentifierState();
     print("in the meddle");
-   initUniqueIdentifierState();//
+    initUniqueIdentifierState(); //
 
     startSplashScreenTimer();
     // calling startSplashScreenTimer method,to start the timer
@@ -88,12 +87,6 @@ class _MyHomePageState extends State<MyHomePage> {
      and callback which is in our case is navigationToNextPage which will be called after the duration {5 seconds here },
      Note: we have to import 'dart:async' so we can use Timer class
      */
-  }
-
-  void navigationTologine() {
-   // Get.to(OrderList());
-
-    Get.to(Log());
   }
 
   Widget build(BuildContext context) {
@@ -125,13 +118,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> initUniqueIdentifierState() async {
-
     try {
       identifier = await UniqueIdentifier.serial;
       print('this is identifier');
       print(identifier);
-
-
     } on PlatformException {
       identifier = 'Failed to get Unique Identifier';
     }
@@ -141,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _identifier = identifier!;
       Fluttertoast.showToast(
-        msg: 'the device identifier is'+_identifier,
+        msg: 'the device identifier is' + _identifier,
       );
     });
   }
@@ -149,5 +139,9 @@ class _MyHomePageState extends State<MyHomePage> {
   int myRandomGenerator() {
     Random m = Random();
     return m.nextInt(10);
+  }
+
+  void navigationTologine() {
+    Get.to(() => Login());
   }
 }
