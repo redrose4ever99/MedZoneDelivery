@@ -1,12 +1,13 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:medzonedelivery/classes/DioConnection.dart';
 import 'package:medzonedelivery/classes/DeliveryMan.dart';
+import 'package:medzonedelivery/pages/orderlist_screen/orderlistpage.dart';
 import 'package:medzonedelivery/widgets/custom_button.dart';
 import 'package:medzonedelivery/widgets/custom_text_form_field.dart';
 import 'package:medzonedelivery/core/app_export.dart';
-import 'package:medzonedelivery/pages/orderlist_screen/orderlistpage.dart';
 
 import 'package:medzonedelivery/widgets/custom_textphone_form_field.dart';
 // ignore_for_file: must_be_immutable
@@ -19,6 +20,9 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHieght = MediaQuery.of(context).size.height;
+
     return SafeArea(
         top: false,
         bottom: false,
@@ -32,14 +36,16 @@ class Login extends StatelessWidget {
                   Container(
                       width: size.width,
                       padding:
-                          getPadding(left: 15, top: 55, right: 15, bottom: 35),
+                          getPadding(left: 15, top: 15, right: 15, bottom: 15),
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             CustomImageView(
                                 imagePath: ImageConstant.medzone,
-                                height: getVerticalSize(100.00),
-                                width: getHorizontalSize(200.00),
+                                height: screenHieght * 0.3 / 2,
+                                width: screenWidth * 0.6,
+                                //  height: getVerticalSize(100.00),
+                                // width: getHorizontalSize(200.00),
                                 margin: getMargin(top: 70)),
                             Padding(
                                 padding: getPadding(top: 64),
@@ -90,15 +96,9 @@ class Login extends StatelessWidget {
                                 fontStyle:
                                     ButtonFontStyle.InterSemiBold14Gray700,
                                 onTap: () {
-                                  if (validateMobile(
-                                          phoneFormController.text) !=
-                                      null) {
-                                    print("taped now");
-                                    login(phoneFormController.text,
-                                        codeFormController.text, context);
-                                  } else {
-                                    alertEmptyPhone(context);
-                                  }
+                                  print("taped now");
+                                  login(phoneFormController.text,
+                                      codeFormController.text, context);
                                 })
                           ])),
                 ],
@@ -106,34 +106,31 @@ class Login extends StatelessWidget {
             )));
   }
 
-//
-//
   void login(String mobile, password, BuildContext context) async {
     showDialog(
-      context: context,
-      builder: (context){
-        return Center(child:
-          CircularProgressIndicator(
-          color: ColorConstant.medzonebackground,
-          backgroundColor: Colors.white70,
+        context: context,
+        builder: (context) {
+          return Center(
+              child: CircularProgressIndicator(
+            color: ColorConstant.medzonebackground,
+            backgroundColor: Colors.white70,
           ));
-      }
-    );
+        });
 
-    List<DeliveryMan> list = List.empty();
+    DeliveryMan list = new DeliveryMan();
     try {
       list = await DioConnection.new().login(mobile, password);
-      if (list.isEmpty) {
+      if (list.id == null) {
         print("Try Again");
         alertFirst(context);
 
         //insert data into ModelClass
       } else {
         Navigator.of(context).pop();
-        print(list[0].name);
-        print(list[0].id);
-        savePreferences(list[0]);
-        onTapOrderList(context, list[0]);
+        print(list.name);
+        print(list.id);
+        savePreferences(list);
+        onTapOrderList(context, list);
 
         // show error
       }
@@ -141,6 +138,7 @@ class Login extends StatelessWidget {
       print("errore data entry");
       print(e);
       alertFirst(context);
+      Navigator.of(context).pop();
     }
   }
 
@@ -148,11 +146,12 @@ class Login extends StatelessWidget {
     Fluttertoast.showToast(
       msg: "خطأ في البيانات المدخلة",
     );
+    Navigator.of(context).pop();
   }
 
   alertEmptyPhone(BuildContext context) {
     Fluttertoast.showToast(
-      msg: " فضلا أدخل رقم الهاتف  ",
+      msg: "رقم الهاتف 10 خانات  ",
     );
   }
 
@@ -176,7 +175,6 @@ class Login extends StatelessWidget {
     Get.to(() => OrderList(
           deliveryMan: man,
         ));
-
   }
 
   String? validateMobile(String value) {

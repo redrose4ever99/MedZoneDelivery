@@ -1,12 +1,12 @@
-// ignore_for_file: unnecessary_new, prefer_interpolation_to_compose_strings
-
 import 'dart:async';
 import 'dart:math';
-
+//import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+//import 'package:get/get_core/src/get_main.dart';
+
 import 'package:medzonedelivery/pages/Auth/presentation/Login.dart';
 
 import 'package:unique_identifier/unique_identifier.dart';
@@ -69,27 +69,20 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // initUniqueIdentifierState();
+    initUniqueIdentifierState();
     print("in the meddle");
-    initUniqueIdentifierState(); //
-
     startSplashScreenTimer();
-    // calling startSplashScreenTimer method,to start the timer
   }
 
   startSplashScreenTimer() async {
     // Because we using Timer and it is a Future Object, we used async keyword
     var _duration = new Duration(seconds: 3);
     return new Timer(_duration, navigationTologine);
-    /*
-     1-Create a variable type Duration, and set Duration to 5 seconds,
-     2-Create a  Timer here, which takes two arguments, first duration,
-     and callback which is in our case is navigationToNextPage which will be called after the duration {5 seconds here },
-     Note: we have to import 'dart:async' so we can use Timer class
-     */
   }
 
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHieght = MediaQuery.of(context).size.height;
     return SafeArea(
       top: false,
       bottom: false,
@@ -103,8 +96,8 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
               CustomImageView(
                   imagePath: ImageConstant.medzone,
-                  height: getVerticalSize(168.00),
-                  width: getHorizontalSize(238.00),
+                  height: screenHieght * 0.2,
+                  width: screenWidth * 0.9,
                   margin: getMargin(top: 60)),
               CircularProgressIndicator(
                 color: ColorConstant.medzonebackground,
@@ -131,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _identifier = identifier!;
       Fluttertoast.showToast(
-        msg: 'the device identifier is' + _identifier,
+        msg: 'the device identifier is $_identifier',
       );
     });
   }
@@ -142,6 +135,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void navigationTologine() {
+    //TabScreen
+    // Get.to(() => TabScreen());
     Get.to(() => Login());
   }
 }

@@ -7,11 +7,15 @@ class AppStyle {
     fontFamily: 'Inter',
     fontWeight: FontWeight.w500,
   );
-
+  static TextStyle txtInterMediumRed = TextStyle(
+    color: ColorConstant.fromHex("88001b"),
+    fontFamily: 'Inter',
+    fontWeight: FontWeight.w500,
+  );
   static TextStyle txtPoppinsBold16 = TextStyle(
     color: ColorConstant.gray900,
     fontSize: getFontSize(
-      16,
+      17,
     ),
     fontFamily: 'Poppins',
     fontWeight: FontWeight.w700,
@@ -20,7 +24,7 @@ class AppStyle {
   static TextStyle txtInterMedium12Gray700 = TextStyle(
     color: ColorConstant.gray700,
     fontSize: getFontSize(
-      12,
+      13,
     ),
     fontFamily: 'Inter',
     fontWeight: FontWeight.w500,
@@ -38,16 +42,25 @@ class AppStyle {
   static TextStyle txtInterMedium12 = TextStyle(
     color: ColorConstant.gray500,
     fontSize: getFontSize(
-      12,
+      13,
     ),
     fontFamily: 'Inter',
     fontWeight: FontWeight.w500,
   );
 
   static TextStyle txtInterSemiBold = TextStyle(
-    color: ColorConstant.gray700,
+    color: ColorConstant.black900,
     fontFamily: 'Inter',
-    fontWeight: FontWeight.w600,
+    fontSize: getFontSize(
+      16,
+    ),
+  );
+  static TextStyle txtInterSemi2Bold = TextStyle(
+    color: ColorConstant.black900,
+    fontFamily: 'Inter',
+    fontSize: getFontSize(
+      16,
+    ),
   );
 
   static TextStyle txtInterSemiBold24 = TextStyle(
@@ -71,7 +84,7 @@ class AppStyle {
   static TextStyle txtPoppinsBold12 = TextStyle(
     color: ColorConstant.whiteA700,
     fontSize: getFontSize(
-      12,
+      13,
     ),
     fontFamily: 'Poppins',
     fontWeight: FontWeight.w700,
@@ -89,7 +102,7 @@ class AppStyle {
   static TextStyle txtInterSemiBold16 = TextStyle(
     color: ColorConstant.gray700,
     fontSize: getFontSize(
-      16,
+      17,
     ),
     fontFamily: 'Inter',
     fontWeight: FontWeight.w600,
@@ -98,7 +111,7 @@ class AppStyle {
   static TextStyle txtInterMedium14 = TextStyle(
     color: ColorConstant.gray500,
     fontSize: getFontSize(
-      14,
+      15,
     ),
     fontFamily: 'Inter',
     fontWeight: FontWeight.w500,

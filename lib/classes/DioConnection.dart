@@ -1,77 +1,55 @@
+// ignore: file_names
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/services.dart';
 import 'package:medzonedelivery/classes/HomeItems.dart';
 import 'DeliveryMan.dart';
+
 import 'Order.dart';
 
 class DioConnection {
   Future<List<Order>> getData(DeliveryMan man) async {
-    print("oooo");
-    print(man.id);
-    //
-    // var response = await Dio().get('https://med.ma5znsyria.com/orders',
-
     var response = await Dio().get('http://med.ma5znsyria.com/personOrders',
         queryParameters: <String, dynamic>{'id': man.id});
-    print(response);
+
+    // ignore: avoid_print
     print(response.statusCode);
     if (response.statusCode == 200) {
-      var data = response.data["data"][0];
-
       final list = response.data["data"] as List<dynamic>;
-     // List<Order>  bb= list.map((e) => Order.fromJson(e)).toList();
-     // print(bb[0].customers);
+
       return list.map((e) => Order.fromJson(e)).toList();
     } else
       return List.empty();
   }
 
-  Future<List<DeliveryMan>> login(String mobile, code) async {
+  Future<DeliveryMan> login(String mobile, code) async {
+    DeliveryMan x = DeliveryMan();
     try {
       var response = await Dio().get('https://med.ma5znsyria.com/person',
           queryParameters: <String, dynamic>{
             'mobile': mobile,
             'code': code,
-
+            'device_id': 0
           });
+      print(response.statusCode);
       if (response.statusCode == 200) {
-        var data = response.data["data"][0];
+        var data = response.data["data"];
 
-        final list = response.data["data"] as List<dynamic>;
-        print(response.data["data"][0]);
-        return list.map((e) => DeliveryMan.fromJson(e)).toList();
+        DeliveryMan x = DeliveryMan();
+        x = DeliveryMan.fromJson(data);
+
+        return x;
         //insert data into ModelClass
       } else {
-        print("faild login");
-        return List.empty();
+        return x;
       }
     } catch (e) {
-      return List.empty();
+      return x;
     }
   }
 
-  void fetchAlbum2() async {
-    var response =
-        await Dio().get('https://jsonplaceholder.typicode.com/posts/1');
-    print(response);
-    if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      // var res = json.decode(response);
-      //insert data into ModelClass
-      print("sucess");
-    } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
-      print("ere in fetch2");
-    }
-  }
-
-  Future updateState(int id, int status, DeliveryMan man) async {
+  Future<bool> updateState(int id, int status, DeliveryMan man) async {
     try {
       var response = await Dio().get('http://med.ma5znsyria.com/editOrder',
           queryParameters: <String, dynamic>{
@@ -79,27 +57,22 @@ class DioConnection {
             'status': status,
           });
       if (response.statusCode == 200) {
-        print("status updated");
-        DioConnection.new().getData(man);
         //insert data into ModelClass
+        return true;
       } else {
         // show error
-        print("Try Again");
+
+        return false;
       }
     } catch (e) {
-      print("errore data entry");
-      print(e);
+      return false;
     }
   }
 
-  Future<List<HomeItems>>ReadTestJsonData() async{
+  Future<List<HomeItems>> ReadTestJsonData() async {
     final jsondata = await rootBundle.loadString('lib/jsonfile/orders.json');
     final list = json.decode(jsondata) as List<dynamic>;
-print(list);
+
     return list.map((e) => HomeItems.fromJson(e)).toList();
   }
-
-
-
-
 }
